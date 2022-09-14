@@ -25,4 +25,26 @@ public class TestAlert {
         driver.quit();
     }
 
+
+    @Test
+    public void deveInteragirComAlertComfirm() {
+        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+        driver.get("C:/seleniumAulas/testeGoogle/src/test/resources/formulario/componentes.html");
+        driver.findElement(By.id("confirm")).click();
+        Alert alert = driver.switchTo().alert();
+        Assert.assertEquals("Confirm Simples", alert.getText());
+        alert.accept();
+        Assert.assertEquals("Confirmado", alert.getText());
+        alert.accept();
+
+        driver.findElement(By.id("confirm")).click();
+        Alert alerta = driver.switchTo().alert();
+        Assert.assertEquals("Confirm Simples", alert.getText());
+        alert.dismiss();
+        Assert.assertEquals("Negado", alert.getText());
+        alert.dismiss(); //  para cancelar um pop-up
+
+        driver.quit();
+    }
 }
