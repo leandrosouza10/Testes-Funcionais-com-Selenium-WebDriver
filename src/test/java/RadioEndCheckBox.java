@@ -11,12 +11,22 @@ public class RadioEndCheckBox {
     WebDriver driver = new ChromeDriver();
 
     @Test
-     public void deveInteragirComRadioButton(){
+    public void deveInteragirComRadioButton() {
         driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get("C:/seleniumAulas/testeGoogle/src/test/resources/formulario/componentes.html");
         driver.findElement(By.id("elementosForm:sexo:0")).click();
         Assert.assertTrue(driver.findElement(By.id("elementosForm:sexo:0")).isSelected());
+        driver.quit();
+    }
+
+    @Test
+    public void deveInteragirComCheckBox() {
+        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+        driver.get("C:/seleniumAulas/testeGoogle/src/test/resources/formulario/componentes.html");
+        driver.findElement(By.id("elementosForm:comidaFavorita:0")).click();
+        Assert.assertTrue(  driver.findElement(By.id("elementosForm:comidaFavorita:0")).isSelected());
         driver.quit();
     }
 }
