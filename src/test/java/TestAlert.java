@@ -1,4 +1,6 @@
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -9,26 +11,26 @@ import java.util.concurrent.TimeUnit;
 
 public class TestAlert {
 
-    WebDriver driver = new ChromeDriver();
-    @Test
-    public void deveInteragirComAlertSimples() {
+    WebDriver driver;
+    @Before
+    public void inicio(){
+        driver = new ChromeDriver();
         driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get("C:/seleniumAulas/testeGoogle/src/test/resources/formulario/componentes.html");
+    }
+    @Test
+    public void deveInteragirComAlertSimples() {
         driver.findElement(By.id("alert")).click();
         Alert alert = driver.switchTo().alert();
         String texto = alert.getText();
         Assert.assertEquals("Alert Simples", texto);
         alert.accept();
         driver.findElement(By.id("elementosForm:nome")).sendKeys(texto);
-        driver.quit();
     }
 
     @Test
     public void deveInteragirComAlertComfirm() {
-        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("C:/seleniumAulas/testeGoogle/src/test/resources/formulario/componentes.html");
         driver.findElement(By.id("confirm")).click();
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Confirm Simples", alert.getText());
@@ -42,14 +44,10 @@ public class TestAlert {
         alerta.dismiss();
         Assert.assertEquals("Negado", alerta.getText());
         alerta.dismiss(); //  para cancelar um pop-up
-        driver.quit();
     }
 
     @Test
     public void deveInteragirComAlertPrompt() {
-        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("C:/seleniumAulas/testeGoogle/src/test/resources/formulario/componentes.html");
         driver.findElement(By.id("prompt")).click();
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Digite um numero",alert.getText());
@@ -70,8 +68,9 @@ public class TestAlert {
         alerta.dismiss();
         Assert.assertEquals(":(",alerta.getText());
         alerta.accept();
-        driver.quit();
-
     }
-
+    @After
+    public void fim (){
+        driver.quit();
+    }
 }
